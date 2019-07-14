@@ -33,8 +33,6 @@ function getProducts() {
         console.log(columns);
         productSearch();
     });
-
-    // connection.end();
 };
 
 function productSearch() {
