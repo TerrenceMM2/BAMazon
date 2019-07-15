@@ -18,7 +18,6 @@ CREATE TABLE departments (
     department_name VARCHAR(100) NOT NULL,
     over_head_costs INTEGER(10) NOT NULL,
     product_sales INTEGER(10) NULL,
-    total_profit INTEGER(10) NULL,
     PRIMARY KEY (id)
 );
 
@@ -28,7 +27,7 @@ VALUES ("television", "electronics", 500.00, 50, 70),
 ("video game console", "electronics", 250.00, 20, 40),
 ("stand mixer", "kitchen", 300.00, 25, 35),
 ("dish set", "kitchen", 80.00, 40, 95),
-("arm chair", "furniture", 225.00, 10, 35),
+("arm chair", "furniture", 225.00, 2, 35),
 ("dresser", "furniture", 450.00, 15, 30),
 ("dress", "women's clothing", 80.00, 200, 500),
 ("blazer", "men's clothing", 120.00, 175, 370),
@@ -45,3 +44,7 @@ VALUES ("electronics", 10000),
 ("toys", 17000),
 ("outdoors", 7000),
 ("pet", 3000);
+
+SELECT * FROM departments;
+
+SELECT * FROM products;

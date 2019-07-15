@@ -84,19 +84,12 @@ function makePurchase(num1, num2) {
             var updateStock = currentStock - num2;
             connection.query('SELECT * FROM departments WHERE department_name = ?', [department], function (error, results) {
                 if (error) throw error;
-                var productSales = results[0].product_sales;
-                var totalProfit = results[0].total_profit;
-                var overHead = results[0].over_head_costs;
-                
+                var productSales = results[0].product_sales;                
                 if (productSales === null) {
                     productSales = 0;
                 };
-                if (totalProfit === null) {
-                    totalProfit = 0;
-                };
                 var newTotals = productSales + salesTotal;
-                totalProfit = newTotals - overHead;
-                connection.query("UPDATE departments SET product_sales = ?, total_profit = ? WHERE department_name = ?", [newTotals, totalProfit, department], function (error, results) {
+                connection.query("UPDATE departments SET product_sales = ? WHERE department_name = ?", [newTotals, department], function (error, results) {
                     if (error) throw error;
                 });
                 connection.end();

@@ -55,7 +55,7 @@ function getProducts() {
         var columns = columnify(data, {
             columnSplitter: " | "
         });
-        console.log(columns);
+        console.log("\n" + columns);
     });
 
     connection.end();
@@ -82,7 +82,7 @@ function lowInventory() {
         var columns = columnify(data, {
             columnSplitter: " | "
         });
-        console.log(columns);
+        console.log("\n" + columns);
     });
 
     connection.end();
@@ -108,7 +108,7 @@ function addInventory() {
         var columns = columnify(data, {
             columnSplitter: " | "
         });
-        console.log(columns);
+        console.log("\n" + columns + "\n");
         specifyProduct();
     });
 };
@@ -148,34 +148,33 @@ function updateInventory(num1, num2) {
 
 function addProduct() {
     inquirer.prompt([{
-        type: "input",
-        name: "productName",
-        message: "Please input the product name."
-    },
-    {
-        type: "input",
-        name: "productPrice",
-        message: "Please input the product price.",
-        validate: function (value) {
-            // Used to validate that the user only inputs a letter character and only one.
-            var pass = value.match(/^\d+(\.\d{1,2})?$/);
-            if (pass) {
-                return true;
-            };
-            return "Please enter price as dd.cc (ex. 9.99) - up to 9999999999.99.";
+            type: "input",
+            name: "productName",
+            message: "Please input the product name."
+        },
+        {
+            type: "input",
+            name: "productPrice",
+            message: "Please input the product price.",
+            validate: function (value) {
+                var pass = value.match(/^\d+(\.\d{1,2})?$/);
+                if (pass) {
+                    return true;
+                };
+                return "Please enter price as dd.cc (ex. 9.99) - up to 9999999999.99.";
+            }
+        },
+        {
+            type: "list",
+            name: "department",
+            message: "Please select a department.",
+            choices: ["men's clothing", "women's clothing", "kid's clothing", "baby", "home", "kitchen", "furniture", "electronics", "toys", "outdoors", "sport & fitness", "health & beauty", "grocery & household", "pet", "seasonal"]
+        },
+        {
+            type: "input",
+            name: "productQuantity",
+            message: "Please input the product quantity."
         }
-    },
-    {
-        type: "list",
-        name: "department",
-        message: "Please select a department.",
-        choices: ["men's clothing", "women's clothing", "kid's clothing", "baby", "home", "kitchen", "furniture", "electronics", "toys", "outdoors", "sport & fitness", "health & beauty", "grocery & household", "pet", "seasonal"]
-    },
-    {
-        type: "input",
-        name: "productQuantity",
-        message: "Please input the product quantity."
-    }
     ]).then(answers => {
         var newProduct = {
             product_name: answers.productName,
