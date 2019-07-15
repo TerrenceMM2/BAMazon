@@ -96,13 +96,13 @@ function addInventory() {
         if (error) throw error;
         var results = results;
         var data = [];
-        for (var i = 0; i < results.length; i++) {
+        for (var k = 0; k < results.length; k++) {
             data.push({
-                product_id: results[i].id,
-                product_name: results[i].product_name,
-                product_department: results[i].department_name,
-                product_price: results[i].price,
-                product_quantity: results[i].stock_quantity
+                product_id: results[k].id,
+                product_name: results[k].product_name,
+                product_department: results[k].department_name,
+                product_price: results[k].price,
+                product_quantity: results[k].stock_quantity
             });
         };
         var columns = columnify(data, {
@@ -147,53 +147,57 @@ function updateInventory(num1, num2) {
 };
 
 function addProduct() {
-    inquirer.prompt([{
-            type: "input",
-            name: "productName",
-            message: "Please input the product name."
-        },
-        {
-            type: "input",
-            name: "productPrice",
-            message: "Please input the product price.",
-            validate: function (value) {
-                var pass = value.match(/^\d+(\.\d{1,2})?$/);
-                if (pass) {
-                    return true;
-                };
-                return "Please enter price as dd.cc (ex. 9.99) - up to 9999999999.99.";
+    connection.connect();
+
+    connection.query("SELECT department_name FROM departments", function (error, results) {
+        if (error) throw error;
+        var departmentsArr = [];
+        for (var l = 0; l < results.length; l++) {
+            departmentsArr.push(results[l].department_name);
+        };
+
+        inquirer.prompt([{
+                type: "input",
+                name: "productName",
+                message: "Please input the product name."
+            },
+            {
+                type: "input",
+                name: "productPrice",
+                message: "Please input the product price.",
+                validate: function (value) {
+                    var pass = value.match(/^\d+(\.\d{1,2})?$/);
+                    if (pass) {
+                        return true;
+                    };
+                    return "Please enter price as dd.cc (ex. 9.99) - up to 9999999999.99.";
+                }
+            },
+            {
+                type: "list",
+                name: "department",
+                message: "Please select a department.",
+                choices: departmentsArr
+            },
+            {
+                type: "input",
+                name: "productQuantity",
+                message: "Please input the product quantity."
             }
-        },
-        {
-            type: "list",
-            name: "department",
-            message: "Please select a department.",
-            choices: ["men's clothing", "women's clothing", "kid's clothing", "baby", "home", "kitchen", "furniture", "electronics", "toys", "outdoors", "sport & fitness", "health & beauty", "grocery & household", "pet", "seasonal"]
-        },
-        {
-            type: "input",
-            name: "productQuantity",
-            message: "Please input the product quantity."
-        }
-    ]).then(answers => {
-        var newProduct = {
-            product_name: answers.productName,
-            department_name: answers.department,
-            price: answers.productPrice,
-            stock_quantity: answers.productQuantity
-        }
-        // var pname = answers.productName;
-        // var price = answers.productPrice;
-        // var dept = answers.department;
-        // var pquant = answers.productQuantity;
+        ]).then(answers => {
+            var newProduct = {
+                product_name: answers.productName,
+                department_name: answers.department,
+                price: answers.productPrice,
+                stock_quantity: answers.productQuantity
+            };
 
-        connection.connect();
+            connection.query("INSERT INTO products SET ?", [newProduct], function (error, results) {
+                if (error) throw error;
+                console.log("\nProduct added!");
+            })
 
-        connection.query("INSERT INTO products SET ?", [newProduct], function (error, results) {
-            if (error) throw error;
-            console.log("\nProduct added!");
-        })
-
-        connection.end();
+            connection.end();
+        });
     });
-}
+};
