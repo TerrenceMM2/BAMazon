@@ -21,7 +21,16 @@ This node app simulates an online store with custom, manager, and supervisor fun
 
    ```$ npm install``` 
 
-3. Using the `bamazon_SEED.sql` file, seed your MySQL database.
+3. Create an `.env` file in the application's home directory with the following information: 
+
+   ```
+   DB_HOST=<db_hostname>
+   DB_INSTANCE=<db_instance_name>
+   DB_USERNAME=<db_username>
+   DB_PASSWORD=<db_username_password>
+   ```
+
+4. Using the `bamazon_SEED.sql` file, seed your MySQL database.
 
 - - -
 
@@ -116,7 +125,8 @@ To get started ...
 2. [MySQL](https://www.mysql.com/)
 3. [inquirer](https://www.npmjs.com/package/inquirer)
 4. [mysql(npm)](https://www.npmjs.com/package/mysql)
-5. [columnify](https://www.npmjs.com/package/columnify)
+5. [dotenv](https://www.npmjs.com/package/dotenv)
+6. [columnify](https://www.npmjs.com/package/columnify)
 
 - - -
 

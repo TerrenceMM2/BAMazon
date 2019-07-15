@@ -1,12 +1,14 @@
+require('dotenv').config();
+
 var mysql = require("mysql");
 var inquirer = require("inquirer");
 var columnify = require("columnify");
 
 var connection = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: 'password',
-    database: 'bamazon'
+    host: process.env.DB_HOST,
+    user: process.env.DB_USERNAME,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_INSTANCE
 });
 
 inquirer.prompt([{
