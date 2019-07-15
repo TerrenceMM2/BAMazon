@@ -48,7 +48,7 @@ function getProducts() {
         var columns = columnify(data, {
             columnSplitter: " | "
         });
-        console.log("\n" + columns + "\n");
+        console.log("\n" + columns);
     });
 
     connection.end();
