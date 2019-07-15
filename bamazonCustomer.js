@@ -74,7 +74,6 @@ function makePurchase(num1, num2) {
         var results = results[0];
         var department = results.department_name;
         var productPrice = parseInt(results.price);
-        var productSales;
         var salesTotal = productPrice * num2;
         var currentStock = results.stock_quantity;
         if (currentStock < num2) {
@@ -83,15 +82,21 @@ function makePurchase(num1, num2) {
             connection.end();
         } else {
             var updateStock = currentStock - num2;
-            var productTotals;
-            connection.query('SELECT product_sales FROM departments WHERE department_name = ?', [department], function (error, results) {
+            connection.query('SELECT * FROM departments WHERE department_name = ?', [department], function (error, results) {
                 if (error) throw error;
-                productSales = results[0].product_sales;
+                var productSales = results[0].product_sales;
+                var totalProfit = results[0].total_profit;
+                var overHead = results[0].over_head_costs;
+                
                 if (productSales === null) {
                     productSales = 0;
-                }
-                productTotals = productSales + salesTotal;
-                connection.query("UPDATE departments SET product_sales = ? WHERE department_name = ?", [productTotals, department], function (error, results) {
+                };
+                if (totalProfit === null) {
+                    totalProfit = 0;
+                };
+                var newTotals = productSales + salesTotal;
+                totalProfit = newTotals - overHead;
+                connection.query("UPDATE departments SET product_sales = ?, total_profit = ? WHERE department_name = ?", [newTotals, totalProfit, department], function (error, results) {
                     if (error) throw error;
                 });
                 connection.end();
