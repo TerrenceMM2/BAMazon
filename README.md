@@ -89,7 +89,9 @@ Prompts the supervisor to supply the following values:
 
 - - -
 
-### [![DEMO](https://i9.ytimg.com/vi/K5pBXHEOusA/hqdefault.jpg?sqp=CJTpsukF&rs=AOn4CLByCZlgeALNJS_WiS1aJmsk0-3K9w)](https://youtu.be/K5pBXHEOusA)
+### Demo
+
+<a href="https://youtu.be/K5pBXHEOusA" target="_blank"><img src="https://i9.ytimg.com/vi_webp/K5pBXHEOusA/mqdefault.webp?sqp=CMDrsukF&rs=AOn4CLAmqPPSNfvprlO9hTk0jIL4nxk8eQ" alt="demo Video"/></a>
 
 - - -
 
