@@ -30,7 +30,7 @@ function getProducts() {
         var columns = columnify(data, {
             columnSplitter: " | "
         });
-        console.log(columns);
+        console.log("\n" + columns + "\n");
         productSearch();
     });
 };
@@ -39,12 +39,26 @@ function productSearch() {
     inquirer.prompt([{
             type: "input",
             name: "productId",
-            message: "Please input the ID of the product you would like to purchase."
+            message: "Please input the ID of the product you would like to purchase.",
+            validate: function (value) {
+                var pass = value.match(/^[0-9]*$/);
+                if (pass) {
+                    return true;
+                };
+                return "Please enter a value from the PRODUCT_ID column.";
+            }
         },
         {
             type: "input",
             name: "quantity",
-            message: "How many units would you like to purchase?"
+            message: "How many units would you like to purchase?",
+            validate: function (value) {
+                var pass = value.match(/^[0-9]*$/);
+                if (pass) {
+                    return true;
+                };
+                return "Please enter a valid numeric quantity.";
+            }
         }
     ]).then(answers => {
         makePurchase(answers.productId, answers.quantity);
@@ -58,19 +72,35 @@ function makePurchase(num1, num2) {
     connection.query('SELECT * FROM products WHERE id = ?', [num1], function (error, results) {
         if (error) throw error;
         var results = results[0];
+        var department = results.department_name;
+        var productPrice = parseInt(results.price);
+        var productSales;
+        var salesTotal = productPrice * num2;
         var currentStock = results.stock_quantity;
         if (currentStock < num2) {
-            console.log("Insufficient quantity!");
+            console.log("\nInsufficient quantity!");
             console.log(">>> Canceling order");
             connection.end();
         } else {
             var updateStock = currentStock - num2;
+            var productTotals;
+            connection.query('SELECT product_sales FROM departments WHERE department_name = ?', [department], function (error, results) {
+                if (error) throw error;
+                productSales = results[0].product_sales;
+                if (productSales === null) {
+                    productSales = 0;
+                }
+                productTotals = productSales + salesTotal;
+                connection.query("UPDATE departments SET product_sales = ? WHERE department_name = ?", [productTotals, department], function (error, results) {
+                    if (error) throw error;
+                });
+                connection.end();
+            });
             connection.query("UPDATE products SET stock_quantity = ? WHERE id = ?", [updateStock, num1]);
-            console.log("Order placed!");
+            console.log("\nOrder placed!");
             var orderTotal = results.price * num2;
-            console.log("Order total = $" + orderTotal);
-            console.log("Thank you for your business.");
-            connection.end();
+            console.log("\nOrder total = $" + orderTotal);
+            console.log("\nThank you for your business.");
         };
     });
 };

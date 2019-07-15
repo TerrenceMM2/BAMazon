@@ -31,6 +31,7 @@ inquirer.prompt([{
             addInventory();
             break;
         case "Add New Product":
+            addProduct();
             break;
     };
 });
@@ -133,7 +134,6 @@ function updateInventory(num1, num2) {
     var num2 = parseInt(num2);
 
     connection.query('SELECT * FROM products WHERE id = ?', [num1], function (error, results) {
-        console.log("THERE HAS BEEN AN ERROR")
         if (error) throw error;
         var results = results[0];
         var currentStock = results.stock_quantity;
@@ -142,6 +142,59 @@ function updateInventory(num1, num2) {
             if (error) throw error;
         });
         connection.end();
-        console.log("\nInventory updated placed!\n");
+        console.log("\nInventory updated!");
     });
 };
+
+function addProduct() {
+    inquirer.prompt([{
+        type: "input",
+        name: "productName",
+        message: "Please input the product name."
+    },
+    {
+        type: "input",
+        name: "productPrice",
+        message: "Please input the product price.",
+        validate: function (value) {
+            // Used to validate that the user only inputs a letter character and only one.
+            var pass = value.match(/^\d+(\.\d{1,2})?$/);
+            if (pass) {
+                return true;
+            };
+            return "Please enter price as dd.cc (ex. 9.99) - up to 9999999999.99.";
+        }
+    },
+    {
+        type: "list",
+        name: "department",
+        message: "Please select a department.",
+        choices: ["men's clothing", "women's clothing", "kid's clothing", "baby", "home", "kitchen", "furniture", "electronics", "toys", "outdoors", "sport & fitness", "health & beauty", "grocery & household", "pet", "seasonal"]
+    },
+    {
+        type: "input",
+        name: "productQuantity",
+        message: "Please input the product quantity."
+    }
+    ]).then(answers => {
+        var newProduct = {
+            product_name: answers.productName,
+            department_name: answers.department,
+            price: answers.productPrice,
+            stock_quantity: answers.productQuantity
+        }
+        // var pname = answers.productName;
+        // var price = answers.productPrice;
+        // var dept = answers.department;
+        // var pquant = answers.productQuantity;
+
+        connection.connect();
+
+        connection.query("INSERT INTO products SET ?", [newProduct], function (error, results) {
+            if (error) throw error;
+            console.log("\nProduct added!");
+        })
+
+        connection.end();
+    });
+}
