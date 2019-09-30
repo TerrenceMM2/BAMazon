@@ -100,7 +100,7 @@ Prompts the supervisor to supply the following values:
 
 ### Demo
 
-<a href="https://youtu.be/K5pBXHEOusA" target="_blank"><img src="https://i9.ytimg.com/vi/K5pBXHEOusA/mqdefault.jpg?sqp=CMDB2ekF&rs=AOn4CLBboXVpobUgTXqIfvMaWVu0WzGSAQ&time=1563844906409" alt="demo Video"/></a>
+<a href="https://youtu.be/K5pBXHEOusA" target="_blank">Demo Video</a>
 
 - - -
 
