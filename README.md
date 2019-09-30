@@ -101,8 +101,8 @@ Prompts the supervisor to supply the following values:
 ### Demo
 
 <a href="https://youtu.be/K5pBXHEOusA" target="_blank">
-   <img src="../media/bamazon-screenshot.png" alt="Demo Video Screenshot"/>
-   Demo Video</a>
+   Demo Video
+   <img src="../media/bamazon-screenshot.png" alt="Demo Video Screenshot"/></a>
 
 - - -
 
