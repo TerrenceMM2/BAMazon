@@ -1,11 +1,8 @@
 # BAMazon
-- - -
 
 ## Purpose  
 
 This node app simulates an online store with custom, manager, and supervisor functionality.  
-
-- - -
 
 ## Installation  
 
@@ -29,8 +26,6 @@ This node app simulates an online store with custom, manager, and supervisor fun
    ```
 
 4. Using the `bamazon_SEED.sql` file, seed your MySQL database.
-
-- - -
 
 ## Instructions  
 
