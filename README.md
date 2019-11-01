@@ -10,7 +10,7 @@ This node app simulates an online store with custom, manager, and supervisor fun
 
 1. Clone this repo to your local machine.  
 
-   ```$ git clone https://github.com/TerrenceMM2/coursework10-bamazon.git```  
+   ```$ git clone https://github.com/TerrenceMM2/BAMazon.git```  
 
 2. Run `npm install` to install the application's dependencies.  
 
@@ -107,11 +107,11 @@ To get started ...
 
 - **Option 1** - 🍴 Fork this repo!
 
-- **Option 2** - 👯 Clone this repo to your local machine using `https://github.com/TerrenceMM2/coursework10-bamazon.git`
+- **Option 2** - 👯 Clone this repo to your local machine using `https://github.com/TerrenceMM2/BAMazon.git`
 
 **Step 2** - **HACK AWAY!** 🔨🔨🔨
 
-**Step 3** - 🔃 Create a new pull request using [https://github.com/TerrenceMM2/coursework10-bamazon/compare](https://github.com/TerrenceMM2/coursework10-bamazon/compare)
+**Step 3** - 🔃 Create a new pull request using [https://github.com/TerrenceMM2/BAMazon/compare](https://github.com/TerrenceMM2/BAMazon/compare)
 
 - - -
 
